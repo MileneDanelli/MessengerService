@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SaveData;
 use App\Models\Data;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -14,11 +15,13 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function store() {
-        $requestAll = [];
-        $requestAll['hash'] = base64_encode(Str::random(100));
+        $data = [];
+        $data['hash'] = base64_encode(Str::random(100));
 
-        $data = Data::create($requestAll);
+        $response = Data::create($data);
 
-        return response()->json($data);
+        broadcast(new SaveData($response));
+
+        return response()->json($response);
     }
 }

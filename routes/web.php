@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/save', [\App\Http\Controllers\Controller::class, 'store']);
+Route::post('/save', [Controller::class, 'store']);
