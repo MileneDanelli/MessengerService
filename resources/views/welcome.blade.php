@@ -16,6 +16,7 @@
 </html>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://js.pusher.com/7.1/pusher.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#btn").on("click", function(e) {
@@ -25,12 +26,23 @@
                 type: 'POST',
                 contentType: 'application/json',
                 success: (data) => {
-                   alert("Hash: " + data.hash + " salva com Sucesso!")
+                    alert("Hash: " + data.hash + " salva com Sucesso!")
                 },
                 error: (error) => {
                     alert(error)
                 }
             });
+        })
+
+        Pusher.logToConsole = true;
+
+        let pusher = new Pusher('997f545405c9a18ef10b', {
+            cluster: 'mt1'
+        });
+
+        let channel = pusher.subscribe('data-response');
+        channel.bind('data.response', function(response) {
+            alert("Segunda Aplicação cadastrou a Hash:" + response.hash + " com ID:" + response.id)
         })
     })
 </script>
