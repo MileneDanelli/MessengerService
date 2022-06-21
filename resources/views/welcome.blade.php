@@ -21,12 +21,9 @@
         $("#btn").on("click", function(e) {
             e.preventDefault();
             $.ajax({
-                url: "/save",
+                url: '/save'+'?_token=' + '{{ csrf_token() }}',
                 type: 'POST',
                 contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 success: (data) => {
                    alert("Hash: " + data.hash + " salva com Sucesso!")
                 },
