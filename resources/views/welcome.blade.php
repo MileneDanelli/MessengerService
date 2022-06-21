@@ -26,10 +26,10 @@
                 type: 'POST',
                 contentType: 'application/json',
                 success: (data) => {
-                    alert("Hash: " + data.hash + " salva com Sucesso!")
+                    console.log("Hash: " + data.hash + " salva com Sucesso!")
                 },
                 error: (error) => {
-                    alert(error)
+                    console.log(error)
                 }
             });
         })
@@ -40,8 +40,8 @@
             cluster: 'mt1'
         });
 
-        let channel = pusher.subscribe('data-response');
-        channel.bind('data.response', function(response) {
+        let channel = pusher.subscribe('data');
+        channel.bind('data.create', function(response) {
             alert("Segunda Aplicação cadastrou a Hash:" + response.hash + " com ID:" + response.id)
         })
     })
